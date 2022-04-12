@@ -6,10 +6,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.NumberFormat;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class GerenciadorDeArquivoNio implements GerenciadorDeArquivo {
@@ -28,69 +25,39 @@ public class GerenciadorDeArquivoNio implements GerenciadorDeArquivo {
         objeto.setArrival( ZonedDateTime.parse(valores[3]) );
         objeto.setPrice(Double.parseDouble((valores[4])));
         objeto.getDuration();
-        /*
-         * O scanner considera o locale na hora de converter string
-         * para double. Ele automaticamente reconhecera se o valor
-         * e separado por ponto ou por virgula.
-         */
+
         return objeto;
     }
 
 
+
     @Override
     public List<Flight> lerCSV(Path arquivo) {
-        List<Flight> objetos = new ArrayList<>();
+        List<Flight> voos = new ArrayList<>();
+        List<Flight> voosFormatados = new ArrayList<>();
 
         try {
             Files.readAllLines(arquivo)
                     .stream()
                     .skip(1)
-                    .map(this::criarObjetoAPartirDaLinhaCSV)
+                    .map(this::criarObjetoAPartirDaLinhaCSV)//cria um objeto a partir de uma linha de csv
                     .filter(Objects::nonNull)
-                    .forEach(objetos::add);
+                    .forEach(voos::add); //para cada linha lida adiciona na lista o objeto
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return objetos;
-    }
-
-    @Override
-    public void escreveLinhas(String caminhoArquivo, List<String> conteudoArquivo) {
-        Path caminho = Paths.get(caminhoArquivo);
-
-        try {
-            Files.write(caminho, conteudoArquivo);
-        } catch (IOException excecao) { }
-    }
-
-    @Override
-    public void apagaArquivo(String caminhoArquivo) {
+            return voos;
 
     }
 
     @Override
-    public void apagaDiretorio(String caminhoDiretorio) {
-
-    }
-
-    @Override
-    public void criaArquivo(String caminhoArquivo) {
-
-    }
-
-    @Override
-    public void criaDiretorio(String caminhoDiretorio) {
-
-    }
-
-    @Override
-    public String converterObjetosParaString(List<Flight> objetos) {
+    public String converterListaParaString(List<Flight> objetos) {
         StringBuilder conteudo = new StringBuilder();
-        /*
-         * Cria a linha de cabecalho automaticamente usando reflection para
-         * obter o nome dos atributos declarados na classe ObjetoModelagem.
-         */
+
+         // cria a linha de cabecalho automaticamente usando reflection para
+         //obter o nome dos atributos declarados na classe ObjetoModelagem
+
         StringJoiner cabecalho = new StringJoiner(";", "", "");
 
         Stream.of(Flight.class.getDeclaredFields())
@@ -119,26 +86,26 @@ public class GerenciadorDeArquivoNio implements GerenciadorDeArquivo {
     }
 
     @Override
-    public void escreverCSV1(String conteudo, Path arquivo) {
+    public void escreverCSV1(String conteudo1, Path arquivo) {
         try {
             // Apaga os dados antigos
             Files.deleteIfExists(arquivo);
 
             // Escreve os novos dados criando o arquivo se necessario
-            Files.writeString(arquivo, conteudo, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            Files.writeString(arquivo, conteudo1);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void escreverCSV2(String conteudo, Path arquivo) {
+    public void escreverCSV2(String conteudo2, Path arquivo) {
         try {
             // Apaga os dados antigos
             Files.deleteIfExists(arquivo);
 
             // Escreve os novos dados criando o arquivo se necessario
-            Files.writeString(arquivo, conteudo, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            Files.writeString(arquivo, conteudo2);
         } catch (IOException e) {
             e.printStackTrace();
         }

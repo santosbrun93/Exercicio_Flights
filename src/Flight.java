@@ -83,4 +83,8 @@ public class Flight {
         return this.getArrival().until(this.getDeparture(), ChronoUnit.HOURS);
     }
 
+    public String getOrigin_Destination() {
+        return this.getOrigin() +"_"+getDestination();
+    }
 }
+
