@@ -4,9 +4,11 @@ import java.util.stream.Stream;
 
 public class SumarizacaoFlights {
 
-    private String origem;
+    private String origin;
 
-    private String destino;
+    private String destination;
+
+
 
     private long menorFlight;
 
@@ -40,19 +42,19 @@ public class SumarizacaoFlights {
     }
 
     public String getOrigin() {
-        return origem;
+        return origin;
     }
 
     public void setOrigin(String origin) {
-        this.origem = origin;
+        this.origin = origin;
     }
 
     public String getDestination() {
-        return destino;
+        return destination;
     }
 
     public void setDestination(String destination) {
-        this.destino = destination;
+        this.destination = destination;
     }
 
     public long getMenorFlight() {

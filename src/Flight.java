@@ -1,4 +1,6 @@
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Flight {
@@ -16,6 +18,19 @@ public class Flight {
     private double price;
 
     private long duration;
+
+
+
+
+
+    public Flight(String origin, String destination, String airline, ZonedDateTime departure, ZonedDateTime arrival, double price) {
+        this.origin = origin;
+        this.destination = destination;
+        this.airline = airline;
+        this.departure = departure;
+        this.arrival = arrival;
+        this.price = price;
+    }
 
     public Flight(String origin, String destination, String airline, ZonedDateTime departure,
                   ZonedDateTime arrival, double price, long duration) {
@@ -80,11 +95,27 @@ public class Flight {
     }
 
     public long getDuration() {
-        return this.getArrival().until(this.getDeparture(), ChronoUnit.HOURS);
+        return (long) BigDecimal.valueOf(departure.until(arrival, ChronoUnit.MINUTES))
+                .divide(new BigDecimal("60"))
+                .doubleValue();
     }
 
     public String getOrigin_Destination() {
         return this.getOrigin() +"_"+getDestination();
+    }
+
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", airline='" + airline + '\'' +
+                ", departure=" + departure +
+                ", arrival=" + arrival +
+                ", price=" + price +
+                ", duration=" + duration +
+                '}';
     }
 }
 

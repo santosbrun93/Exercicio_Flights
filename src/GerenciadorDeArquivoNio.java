@@ -31,10 +31,9 @@ public class GerenciadorDeArquivoNio implements GerenciadorDeArquivo {
 
 
 
-    @Override
-    public List<Flight> lerCSV(Path arquivo) {
+  //  @Override
+   /* public List<Flight> lerCSV(Path arquivo) {
         List<Flight> voos = new ArrayList<>();
-        List<Flight> voosFormatados = new ArrayList<>();
 
         try {
             Files.readAllLines(arquivo)
@@ -49,10 +48,10 @@ public class GerenciadorDeArquivoNio implements GerenciadorDeArquivo {
         }
             return voos;
 
-    }
+    } */
 
     @Override
-    public String converterListaParaString(List<Flight> objetos) {
+    public String converterLista1ParaString(List<Flight> objetos) {
         StringBuilder conteudo = new StringBuilder();
 
          // cria a linha de cabecalho automaticamente usando reflection para
@@ -81,6 +80,40 @@ public class GerenciadorDeArquivoNio implements GerenciadorDeArquivo {
                 .append(objeto.getPrice())
                 .append(";")
                 .append(objeto.getDuration())
+                .append(System.lineSeparator()));
+        return conteudo.toString();
+    }
+
+    @Override
+    public String converterLista2ParaString(List<SumarizacaoFlights> objetos) {
+        StringBuilder conteudo = new StringBuilder();
+
+        // cria a linha de cabecalho automaticamente usando reflection para
+        //obter o nome dos atributos declarados na classe ObjetoModelagem
+
+        StringJoiner cabecalho = new StringJoiner(";", "", "");
+
+        Stream.of(SumarizacaoFlights.class.getDeclaredFields())
+                .map(Field::getName)
+                .forEach(cabecalho::add);
+
+        conteudo.append(cabecalho)
+                .append(System.lineSeparator());
+
+        objetos.forEach(objeto -> conteudo
+                .append(objeto.getOrigin())
+                .append(";")
+                .append(objeto.getDestination())
+                .append(";")
+                .append(objeto.getMenorFlight())
+                .append(";")
+                .append(objeto.getMaiorFlight())
+                .append(";")
+                .append(objeto.getMaisBaratoFlight())
+                .append(";")
+                .append(objeto.getAveragePrice())
+                .append(";")
+                .append(objeto.getAverageDuration())
                 .append(System.lineSeparator()));
         return conteudo.toString();
     }

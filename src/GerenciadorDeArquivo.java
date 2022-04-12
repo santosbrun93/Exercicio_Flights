@@ -3,11 +3,13 @@ import java.util.List;
 
 public interface GerenciadorDeArquivo {
 
-        String converterListaParaString(List<Flight> objetos);
+        String converterLista1ParaString(List<Flight> objetos);
+
+        String converterLista2ParaString(List<SumarizacaoFlights> lista);
 
         Flight criarObjetoAPartirDaLinhaCSV(String linha);
 
-        List<Flight> lerCSV(Path arquivo);
+        //List<Flight> lerCSV();
 
         void escreverCSV1(String conteudo, Path arquivo);
 
