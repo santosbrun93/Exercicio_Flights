@@ -8,8 +8,6 @@ public class SumarizacaoFlights {
 
     private String destination;
 
-
-
     private long menorFlight;
 
     private long maiorFlight;
@@ -21,24 +19,38 @@ public class SumarizacaoFlights {
     private double averagePrice;
 
 
-    public SumarizacaoFlights(List<Flight> voos) {
-        this(voos.get(0).getOrigin(), voos.get(0).getDestination(), voos.stream());
-    }
+    //public SumarizacaoFlights(List<Flight> voos) {
+    //    this(voos.get(0).getOrigin(), voos.get(0).getDestination(), voos.stream());
+    //}
 
-    public SumarizacaoFlights(String origin, String destination, Stream<Flight> voos) {
+ /*         public SumarizacaoFlights(String origin, String destination, Stream<Flight> voos) {
         this(
                 origin,
                 destination,
-                voos.mapToLong(Flight::getDuration).min().getAsLong(),
+          voos.mapToLong(Flight::getDuration).min().getAsLong(),
                 voos.mapToLong(Flight::getDuration).max().getAsLong(),
                 voos.mapToDouble(Flight::getPrice).min().getAsDouble(),
                 voos.mapToLong(Flight::getDuration).average().getAsDouble(),
                 voos.mapToDouble(Flight::getPrice).average().getAsDouble()
-        );
+
+
+        );  */
+
+
+
+    public SumarizacaoFlights(String origin, String destination, long menorFlight, long maiorFlight, double maisBaratoFlight, long averageDuration, double averagePrice) {
+
+        this.origin = origin;
+        this.destination = destination;
+        this.menorFlight = menorFlight;
+        this.maiorFlight = maiorFlight;
+        this.maisBaratoFlight = maisBaratoFlight;
+        this.averageDuration = averageDuration;
+        this.averagePrice = averagePrice;
     }
 
 
-    public SumarizacaoFlights(String origin, String destination, long asLong, long asLong1, double asDouble, double asDouble1, double asDouble2) {
+    public SumarizacaoFlights(long menorFlight, long maiorFlight, double maisBaratoFlight, long averageDuration, double averagePrice) {
     }
 
     public String getOrigin() {
@@ -97,3 +109,4 @@ public class SumarizacaoFlights {
         this.averagePrice = averagePrice;
     }
 }
+

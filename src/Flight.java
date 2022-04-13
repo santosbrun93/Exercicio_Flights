@@ -20,9 +20,6 @@ public class Flight {
     private long duration;
 
 
-
-
-
     public Flight(String origin, String destination, String airline, ZonedDateTime departure, ZonedDateTime arrival, double price) {
         this.origin = origin;
         this.destination = destination;

@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -138,7 +139,7 @@ public class GerenciadorDeArquivoNio implements GerenciadorDeArquivo {
             Files.deleteIfExists(arquivo);
 
             // Escreve os novos dados criando o arquivo se necessario
-            Files.writeString(arquivo, conteudo2);
+            Files.writeString(arquivo, conteudo2, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,1 +1,46 @@
 origin;destination;menorFlight;maiorFlight;maisBaratoFlight;averageDuration;averagePrice
+JFK-Estados Unidos;YYC-Canada;1;22;2004.0;3048.6;11
+JFK-Estados Unidos;PEK-China;10;24;2061.0;3879.8;17
+KIN-Jamaica;YYC-Canada;1;23;2454.0;3458.4;15
+MEX-México;MEL-Austrália;2;23;2231.0;3387.6;13
+YYC-Canada;LIS-Portugal;1;24;2001.0;3468.2;11
+PEK-China;MEL-Austrália;1;24;2321.0;3213.6;15
+FEN-Brasil;LIS-Portugal;1;21;2242.0;3231.6;11
+JFK-Estados Unidos;MEL-Austrália;1;19;2129.0;3110.5;8
+NRT-Japão;YYC-Canada;2;17;2052.0;3843.3;9
+NRT-Japão;LIS-Portugal;1;24;2040.0;3175.7;11
+PEK-China;GRU-Brasil;2;23;2088.0;3284.7;15
+JFK-Estados Unidos;GRU-Brasil;1;23;2294.0;3707.1;13
+MEX-México;LIS-Portugal;2;22;2217.0;3157.7;14
+MEX-México;PEK-China;5;18;2061.0;3702.0;11
+NRT-Japão;MEL-Austrália;9;24;2345.0;3587.1;16
+KIN-Jamaica;FEN-Brasil;1;23;2071.0;2838.8;12
+FEN-Brasil;MEL-Austrália;1;19;2341.0;3913.8;9
+JFK-Estados Unidos;LIS-Portugal;3;23;2293.0;3655.3;13
+FEN-Brasil;YYC-Canada;1;17;2073.0;3645.1;8
+GRU-Brasil;MEL-Austrália;1;23;2464.0;4216.0;11
+MEX-México;YYC-Canada;2;23;2129.0;3558.3;12
+YYC-Canada;MEL-Austrália;4;24;2026.0;3529.3;13
+KIN-Jamaica;MEL-Austrália;2;23;2044.0;3318.3;13
+PEK-China;LIS-Portugal;1;22;2146.0;3187.4;11
+GRU-Brasil;FEN-Brasil;4;21;2299.0;3522.4;13
+PEK-China;YYC-Canada;3;24;2225.0;3349.9;11
+MEX-México;KIN-Jamaica;1;23;2015.0;3329.4;11
+GRU-Brasil;LIS-Portugal;3;22;2323.0;3483.4;14
+PEK-China;FEN-Brasil;2;22;2108.0;3318.1;11
+GRU-Brasil;YYC-Canada;8;22;2211.0;3468.8;14
+MEL-Austrália;LIS-Portugal;1;24;2459.0;3212.1;12
+NRT-Japão;KIN-Jamaica;3;24;2359.0;3869.6;12
+NRT-Japão;FEN-Brasil;1;21;2317.0;3643.4;8
+GRU-Brasil;KIN-Jamaica;1;22;2006.0;3183.1;11
+MEX-México;GRU-Brasil;2;24;2372.0;3780.7;13
+PEK-China;KIN-Jamaica;1;24;2546.0;3163.5;10
+JFK-Estados Unidos;MEX-México;1;24;2645.0;3771.9;13
+KIN-Jamaica;LIS-Portugal;1;21;2857.0;3897.7;12
+JFK-Estados Unidos;KIN-Jamaica;1;23;2073.0;3464.0;9
+NRT-Japão;PEK-China;2;22;2088.0;3517.3;11
+JFK-Estados Unidos;FEN-Brasil;1;24;3010.0;3818.2;11
+MEX-México;FEN-Brasil;6;23;2932.0;3878.5;17
+NRT-Japão;GRU-Brasil;1;19;2263.0;3465.1;11
+MEX-México;NRT-Japão;1;24;2405.0;3497.0;10
+JFK-Estados Unidos;NRT-Japão;2;23;2076.0;3424.3;14

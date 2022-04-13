@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.ZonedDateTime;
@@ -28,7 +30,7 @@ public class Main {
 
         final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss (XXX)");
 
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(path, StandardCharsets.UTF_8))) {
 
             br.readLine();
             String line = br.readLine();
@@ -40,11 +42,11 @@ public class Main {
                 String destitation = vect[1];
                 String airlane = vect[2];
                 ZonedDateTime departure;
-                departure = ZonedDateTime.parse(vect[3],FORMATTER);
-                ZonedDateTime arrival = ZonedDateTime.parse(vect[4],FORMATTER);
+                departure = ZonedDateTime.parse(vect[3], FORMATTER);
+                ZonedDateTime arrival = ZonedDateTime.parse(vect[4], FORMATTER);
                 double price = Double.parseDouble(vect[5]);
 
-                Flight voo = new Flight(origin,destitation, airlane, departure, arrival, price);
+                Flight voo = new Flight(origin, destitation, airlane, departure, arrival, price);
                 voo.getDuration();
 
                 voosCSV.add(voo);
@@ -56,8 +58,7 @@ public class Main {
             for (Flight f : voosCSV) {
                 System.out.println(f);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
         System.out.println("Carregado lista de voos!!");
@@ -65,35 +66,58 @@ public class Main {
 
         System.out.println(voosCSV);
 
-        List<Flight> voosOrdenados =  voosCSV.stream()
+        List<Flight> voosOrdenados = voosCSV.stream()
                 .sorted(Comparator.comparing(Flight::getOrigin)
                         .thenComparing(Flight::getDestination)
                         .thenComparing(Flight::getDuration)
                         .thenComparing(Flight::getPrice)
                         .thenComparing(Flight::getAirline)
-                        )
+                )
                 .collect(Collectors.toList());
         System.out.println("Realizada ordenação da lista do Voos!!");
 
+        String dados1 = io.converterLista1ParaString(voosOrdenados);
 
-        List<SumarizacaoFlights> resultadoVoos = (List<SumarizacaoFlights>) voosCSV.stream()
-                .collect(Collectors.groupingBy(Flight::getOrigin_Destination))
-                .values()
-                .stream()
-                .map(SumarizacaoFlights::new)
-                .collect(Collectors.toList());
-        System.out.println("Realizada sumarização dos Voos pelas caracteristicas determinadas!!");
+        io.escreverCSV1(dados1, local1);
 
-        String dados1 = io.converterLista1ParaString( voosOrdenados );
         System.out.println("Realizada gravação do primeiro Arquivo com sucesso!!");
 
-        String dados2 = io.converterLista2ParaString( resultadoVoos );
+
+        List<SumarizacaoFlights> sumarizacao = voosCSV.stream()
+                .collect(Collectors.groupingBy(Flight::getOrigin_Destination)) //Map<String, List<Pedido>>
+                .entrySet() //Set<Entry<String, List<Flight>>>
+                .stream() //Map<String, List<Flight>> -> Map<String, SumarizacaoFlights>
+                .map(Main::mapToSumarizador) //Entry<String, List<Flight> -> Entry<String, SumarizacaoFlights>
+                .collect(Collectors.toList());//        Map<String, SumarizacaoFlights>
+
+        System.out.println(sumarizacao);
+
+
+        System.out.println("Realizada sumarização dos Voos pelas caracteristicas determinadas!!");
+
+        String dados2 = io.converterLista2ParaString(sumarizacao);
+
+        io.escreverCSV2(dados2 ,local2);
+
         System.out.println("Realizada gravação do segundo Arquivo com sucesso!!");
 
         System.out.println("Execução concluída, Até logo.");
 
-        io.escreverCSV1(dados1, local1);
 
-        io.escreverCSV2(dados2 ,local2);
+
+    }
+    private static SumarizacaoFlights mapToSumarizador(Map.Entry<String, List<Flight>> entry) {
+        String key = entry.getKey();
+        String[] keyParts = key.split("_");
+        String origin = keyParts[0];
+        String destination = keyParts[1];
+
+        List<Flight> voos = entry.getValue();
+        long menorFlight = voos.stream().mapToLong(Flight::getDuration).min().getAsLong();
+        long maiorFlight = voos.stream().mapToLong(Flight::getDuration).max().getAsLong();
+        double maisBaratoFlight = voos.stream().mapToDouble(Flight::getPrice).min().getAsDouble();
+        long averageDuration = (long) voos.stream().mapToLong(Flight::getDuration).average().getAsDouble();
+        double averagePrice = voos.stream().mapToDouble(Flight::getPrice).average().getAsDouble();
+        return  new SumarizacaoFlights( origin, destination, menorFlight, maiorFlight, maisBaratoFlight, averageDuration, averagePrice);
     }
 }
